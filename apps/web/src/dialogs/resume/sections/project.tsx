@@ -14,6 +14,7 @@ import {
 } from "@reactive-resume/ui/components/dialog";
 import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
 import { Switch } from "@reactive-resume/ui/components/switch";
+import { ChipInput } from "@/components/input/chip-input";
 import { RichInput } from "@/components/input/rich-input";
 import { URLInput } from "@/components/input/url-input";
 import { useDialogStore } from "@/dialogs/store";
@@ -34,6 +35,7 @@ const defaultValues: FormValues = {
 	period: "",
 	website: { url: "", label: "", inlineLink: false },
 	description: "",
+	keywords: [],
 };
 
 export function CreateProjectDialog({ data }: DialogProps<"resume.sections.projects.create">) {
@@ -200,6 +202,30 @@ const ProjectForm = withForm({
 								<Trans>Description</Trans>
 							</FormLabel>
 							<FormControl render={<RichInput value={field.state.value} onChange={(v) => field.handleChange(v)} />} />
+							<FormMessage errors={field.state.meta.errors} />
+						</FormItem>
+					)}
+				</form.Field>
+
+				<form.Field name="keywords">
+					{(field) => (
+						<FormItem
+							className="sm:col-span-full"
+							hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
+						>
+							<FormLabel>
+								<Trans>Keywords</Trans>
+							</FormLabel>
+							<FormControl
+								render={
+									<ChipInput
+										value={field.state.value}
+										onChange={(v: string[]) => {
+											field.handleChange(v);
+										}}
+									/>
+								}
+							/>
 							<FormMessage errors={field.state.meta.errors} />
 						</FormItem>
 					)}

@@ -418,10 +418,15 @@ const ProfileSection = ({ sectionId = "profiles", sectionData }: ItemSectionProp
 						<SectionItemHeader>
 							<View style={composeStyles(inlineStyle)}>
 								<Icon name={item.icon as IconName} />
-								<Bold>{item.network}</Bold>
+								{item.website.url ? (
+									<Link src={item.website.url}>
+										<Bold>{item.username || item.network}</Bold>
+									</Link>
+								) : (
+									<Bold>{item.network}</Bold>
+								)}
 							</View>
 						</SectionItemHeader>
-						<Link src={item.website.url}>{item.username}</Link>
 					</SectionItem>
 				))}
 			</SectionItems>
@@ -489,7 +494,7 @@ const ExperienceSection = ({ sectionId = "experience", sectionData }: ItemSectio
 							{item.roles.map((role) => (
 								<View key={role.id}>
 									<View style={composeStyles(splitRowStyle)}>
-										<Text>{role.position}</Text>
+										<Text style={{ fontWeight: "500" }}>{role.position}</Text>
 										<Text style={composeStyles(alignEndStyle)}>{role.period}</Text>
 									</View>
 									<RichText>{role.description}</RichText>
@@ -511,7 +516,7 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 	const data = useRender();
 	const education = sectionData ?? data.sections.education;
 	const items = getVisibleItems(education, "education");
-	const splitRowStyle = useSectionSplitRowStyle();
+	const splitRowStyle = useTemplateStyle("splitRow");
 	const alignEndStyle = useTemplateStyle("alignEnd");
 	const inlineItemHeader = useTemplateFeature("inlineItemHeader");
 
@@ -521,15 +526,9 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 		<SectionShell sectionId={sectionId} title={education.title}>
 			<SectionItems columns={education.columns}>
 				{items.map((item) => {
-					const degreeAndGrade = [item.degree, item.grade].filter(Boolean).join(" • ");
-					const locationAndPeriod = [item.location, item.period].filter(Boolean).join(" • ");
 					const gradeAndLocation = [item.grade, item.location].filter(Boolean).join(" • ");
 					const hasArea = Boolean(item.area.trim());
 					const hasDegree = Boolean(item.degree.trim());
-					const { top: headerDegreeAndGrade, bottom: headerLocationAndPeriod } = promoteSplitRowRight({
-						top: degreeAndGrade,
-						bottom: locationAndPeriod,
-					});
 
 					const renderInlineHeader = () => (
 						<>
@@ -550,25 +549,21 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 						</>
 					);
 
-					const renderSplitHeader = () => (
-						<>
-							<View style={composeStyles(splitRowStyle)}>
-								<ItemTitle website={item.website}>{item.school}</ItemTitle>
-								{hasSplitRowText(headerDegreeAndGrade) && (
-									<Text style={composeStyles(alignEndStyle)}>{headerDegreeAndGrade}</Text>
-								)}
-							</View>
+					const renderSplitHeader = () => {
+						const heading = [item.degree, item.area].filter(Boolean).join(", ");
 
-							{(hasArea || hasSplitRowText(headerLocationAndPeriod)) && (
+						return (
+							<>
+								{heading && <ItemTitle website={item.website}>{heading}</ItemTitle>}
+								{!heading && <ItemTitle website={item.website}>{item.school}</ItemTitle>}
+								{heading && <Text>{item.school}</Text>}
 								<View style={composeStyles(splitRowStyle)}>
-									{hasArea && <Text>{item.area}</Text>}
-									{hasSplitRowText(headerLocationAndPeriod) && (
-										<Text style={composeStyles(alignEndStyle)}>{headerLocationAndPeriod}</Text>
-									)}
+									{item.location && <Text>{item.location}</Text>}
+									{item.period && <Text style={composeStyles(alignEndStyle)}>{item.period}</Text>}
 								</View>
-							)}
-						</>
-					);
+							</>
+						);
+					};
 
 					return (
 						<SectionItem key={item.id}>
@@ -582,6 +577,24 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 				})}
 			</SectionItems>
 		</SectionShell>
+	);
+};
+
+const ProjectKeywords = ({ keywords }: { keywords: string[] }) => {
+	const { metadata } = useRender();
+	const textStyle = useTemplateStyle("text");
+	const smallStyle = useTemplateStyle("small");
+	const primaryColor = metadata.design.colors.primary;
+
+	return (
+		<Text
+			style={composeStyles(textStyle, smallStyle, {
+				color: primaryColor,
+				fontSize: metadata.typography.body.fontSize * 0.75,
+			})}
+		>
+			Stack: {keywords.join("    ")}
+		</Text>
 	);
 };
 
@@ -609,6 +622,8 @@ const ProjectsSection = ({ sectionId = "projects", sectionData }: ItemSectionPro
 						<RichText>{item.description}</RichText>
 
 						<ItemWebsiteLink website={item.website} />
+
+						{item.keywords.length > 0 && <ProjectKeywords keywords={item.keywords} />}
 					</SectionItem>
 				))}
 			</SectionItems>
@@ -740,7 +755,7 @@ const CertificationsSection = ({
 	const data = useRender();
 	const certifications = sectionData ?? data.sections.certifications;
 	const items = getVisibleItems(certifications, "certifications");
-	const splitRowStyle = useSectionSplitRowStyle();
+	const splitRowStyle = useTemplateStyle("splitRow");
 	const alignEndStyle = useTemplateStyle("alignEnd");
 
 	if (items.length === 0) return null;
@@ -751,11 +766,11 @@ const CertificationsSection = ({
 				{items.map((item) => (
 					<SectionItem key={item.id}>
 						<SectionItemHeader>
+							<ItemTitle website={item.website}>{item.title}</ItemTitle>
 							<View style={composeStyles(splitRowStyle)}>
-								<ItemTitle website={item.website}>{item.title}</ItemTitle>
+								<Text>{item.issuer}</Text>
 								<Text style={composeStyles(alignEndStyle)}>{item.date}</Text>
 							</View>
-							<Text>{item.issuer}</Text>
 						</SectionItemHeader>
 
 						<RichText>{item.description}</RichText>

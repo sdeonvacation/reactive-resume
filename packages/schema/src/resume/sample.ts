@@ -148,6 +148,7 @@ export const sampleResumeData: ResumeData = {
 					},
 					description:
 						"<p>Solo developer for a narrative-driven 2D platformer built in Unity. Features custom dialogue system, branching story paths, and atmospheric pixel art. Currently in development with demo released on itch.io garnering 5K+ downloads and positive community feedback. Planned Steam release Q2 2025.</p>",
+					keywords: ["Unity", "C#", "Pixel Art"],
 				},
 				{
 					id: "019bef5a-93e4-7746-ad39-524195dd7eff",
@@ -161,6 +162,7 @@ export const sampleResumeData: ResumeData = {
 					},
 					description:
 						"<p>Created and maintain an open-source dialogue system for Unity with visual node-based editor, localization support, and voice acting integration. Project has 800+ GitHub stars and is actively used by indie developers worldwide. Includes comprehensive documentation and example projects.</p>",
+					keywords: ["Unity", "Open Source", "Node Editor"],
 				},
 				{
 					id: "019bef5a-93e4-7746-ad39-549106273c73",
@@ -174,6 +176,7 @@ export const sampleResumeData: ResumeData = {
 					},
 					description:
 						"<p>Regular participant in Ludum Dare and Global Game Jam events. Created 12+ game prototypes exploring experimental mechanics and art styles. Won 'Best Gameplay' award at Ludum Dare 48 with puzzle game 'Deeper and Deeper' that ranked in top 5% overall.</p>",
+					keywords: ["Game Jam", "Prototyping"],
 				},
 			],
 		},

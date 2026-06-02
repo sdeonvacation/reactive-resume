@@ -23,7 +23,7 @@ export const getTemplateMetrics = ({ gapX, gapY, marginX, marginY }: PageMetrics
 	},
 	headerGap: marginY,
 	columnGap: marginX,
-	sectionGap: marginY,
+	sectionGap: gapY * 2,
 	itemGapX: gapX,
 	itemGapY: gapY,
 	gapX: (factor) => gapX * factor,

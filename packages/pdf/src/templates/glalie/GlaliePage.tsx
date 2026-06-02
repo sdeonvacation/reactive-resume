@@ -96,7 +96,7 @@ export const GlaliePage = ({ page, pageIndex }: TemplatePageProps) => {
 };
 
 const Header = ({ styles }: GlalieHeaderProps) => {
-	const { basics, picture } = useRender();
+	const { basics, picture, metadata } = useRender();
 	const hasPicture = hasTemplatePicture(picture);
 
 	return (
@@ -106,7 +106,7 @@ const Header = ({ styles }: GlalieHeaderProps) => {
 			<View style={styles.headerTitle}>
 				<View style={styles.headerIdentity}>
 					<Heading style={styles.headerName}>{basics.name}</Heading>
-					<Text>{basics.headline}</Text>
+					<Text style={{ fontSize: metadata.typography.body.fontSize * 1.6 }}>{basics.headline}</Text>
 				</View>
 			</View>
 
@@ -291,7 +291,7 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				paddingTop: metrics.page.paddingVertical,
 			},
 			header: {
-				alignItems: "center",
+				alignItems: "flex-start",
 				rowGap: metrics.gapY(0.5),
 			},
 			picture: {
@@ -307,11 +307,11 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				transform: `rotate(${picture.rotation}deg)`,
 			},
 			headerTitle: {
-				alignItems: "center",
-				textAlign: "center",
+				alignItems: "flex-start",
+				textAlign: "left",
 			},
 			headerIdentity: {
-				alignItems: "center",
+				alignItems: "flex-start",
 				textAlign: "center",
 				rowGap: metrics.gapY(0.35),
 			},
@@ -321,9 +321,6 @@ const useGlalieTemplate = (): GlalieTemplate => {
 			},
 			contactList: {
 				width: "100%",
-				borderWidth: 1,
-				borderColor: primary,
-				borderRadius: 0,
 				padding: metrics.gapX(0.75),
 				rowGap: metrics.gapY(0.125),
 			},
@@ -349,7 +346,7 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				text: (context) => ({ ...bodyText, color: foregroundFor(context) }),
 				heading: (context) => ({ ...baseStyles.heading, color: foregroundFor(context) }),
 				link: (context) => ({ ...baseStyles.link, color: foregroundFor(context) }),
-				sectionHeading: (context) => ({ ...baseStyles.sectionHeading, color: accentFor(context) }),
+				sectionHeading: (context) => ({ ...baseStyles.sectionHeading, color: foregroundFor(context) }),
 				levelItem: (context) => ({ borderColor: accentFor(context) }),
 				levelItemActive: (context) => ({ backgroundColor: accentFor(context) }),
 				icon: (context) => ({

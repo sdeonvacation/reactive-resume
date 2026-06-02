@@ -2,7 +2,7 @@ import type { Style } from "@react-pdf/types";
 import type { CustomField } from "@reactive-resume/schema/resume/data";
 import type { IconName } from "phosphor-icons-react-pdf/dynamic";
 import { View } from "../../renderer";
-import { getCustomFieldLinkUrl, getWebsiteDisplayText } from "./contact";
+import { getCustomFieldDisplayText, getCustomFieldLinkUrl, getWebsiteDisplayText } from "./contact";
 import { Icon, Link, Text } from "./primitives";
 
 type WebsiteDisplay = {
@@ -39,10 +39,11 @@ export const WebsiteContactItem = ({ website, style, textStyle, iconColor }: Web
 
 export const CustomFieldContactItem = ({ field, style, textStyle, iconColor }: CustomFieldContactItemProps) => {
 	const linkUrl = getCustomFieldLinkUrl(field);
+	const displayText = getCustomFieldDisplayText(field);
 	const children = (
 		<>
 			<Icon name={field.icon as IconName} {...(iconColor ? { color: iconColor } : {})} />
-			<Text {...(textStyle ? { style: textStyle } : {})}>{field.text}</Text>
+			<Text {...(textStyle ? { style: textStyle } : {})}>{displayText}</Text>
 		</>
 	);
 

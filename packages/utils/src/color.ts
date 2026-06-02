@@ -1,5 +1,7 @@
 import type { ColorResult } from "@uiw/color-convert";
-import { hsvaToHex, rgbaStringToHsva } from "@uiw/color-convert";
+import * as colorConvert from "@uiw/color-convert";
+
+const { hsvaToHex, rgbaStringToHsva } = colorConvert;
 
 export function rgbaStringToHex(rgba: string): string {
 	const color = parseColorString(rgba);

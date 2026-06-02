@@ -213,6 +213,12 @@ export const projectItemSchema = baseItemSchema.extend({
 	period: z.string().describe("The period of time the project was worked on."),
 	website: itemWebsiteSchema.describe("The link to the project, if any."),
 	description: z.string().describe("The description of the project. This should be a HTML-formatted string."),
+	keywords: z
+		.array(z.string())
+		.catch([])
+		.describe(
+			"The keywords/tags associated with the project (e.g. tech stack). Displayed as tags below the description.",
+		),
 });
 
 export const publicationItemSchema = baseItemSchema.extend({
