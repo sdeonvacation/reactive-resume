@@ -23,11 +23,14 @@ COPY packages/api/package.json ./packages/api/package.json
 COPY packages/auth/package.json ./packages/auth/package.json
 COPY packages/config/package.json ./packages/config/package.json
 COPY packages/db/package.json ./packages/db/package.json
+COPY packages/docx/package.json ./packages/docx/package.json
 COPY packages/email/package.json ./packages/email/package.json
 COPY packages/env/package.json ./packages/env/package.json
 COPY packages/fonts/package.json ./packages/fonts/package.json
 COPY packages/import/package.json ./packages/import/package.json
+COPY packages/mcp/package.json ./packages/mcp/package.json
 COPY packages/pdf/package.json ./packages/pdf/package.json
+COPY packages/resume/package.json ./packages/resume/package.json
 COPY packages/schema/package.json ./packages/schema/package.json
 COPY packages/ui/package.json ./packages/ui/package.json
 COPY packages/utils/package.json ./packages/utils/package.json
