@@ -62,6 +62,7 @@ type SectionShellProps = {
 type SectionItemsProps = {
 	children: ReactNode;
 	columns?: number;
+	itemGapMultiplier?: number;
 };
 
 type SectionItemProps = {
@@ -225,7 +226,7 @@ const SectionShell = ({ sectionId, title, showHeading = true, children }: Sectio
 	);
 };
 
-const SectionItems = ({ children, columns = 1 }: SectionItemsProps) => {
+const SectionItems = ({ children, columns = 1, itemGapMultiplier = 1 }: SectionItemsProps) => {
 	const data = useRender();
 	const placement = useTemplatePlacement();
 	const sectionTimeline = useTemplateFeature("sectionTimeline");
@@ -235,7 +236,7 @@ const SectionItems = ({ children, columns = 1 }: SectionItemsProps) => {
 	const metrics = getTemplateMetrics(data.metadata.page);
 	const layout = getSectionItemsLayout({
 		columns,
-		rowGap: metrics.itemGapY,
+		rowGap: metrics.itemGapY * itemGapMultiplier,
 		columnGap: metrics.itemGapX,
 	});
 	const useTimeline = shouldUseSectionTimeline({
@@ -353,8 +354,10 @@ const SectionItemHeader = ({ children }: SectionItemHeaderProps) => {
 };
 
 const ItemTitle = ({ children, website }: ItemTitleProps) => {
+	const data = useRender();
+	const highestWeight = data.metadata.typography.body.fontWeights.at(-1) ?? "600";
 	const inlineWebsiteUrl = getInlineItemWebsiteUrl(website);
-	const title = <Bold>{children}</Bold>;
+	const title = <Bold style={{ fontWeight: highestWeight }}>{children}</Bold>;
 
 	if (!inlineWebsiteUrl) return title;
 
@@ -441,12 +444,14 @@ const ExperienceSection = ({ sectionId = "experience", sectionData }: ItemSectio
 	const splitRowStyle = useSectionSplitRowStyle();
 	const alignEndStyle = useTemplateStyle("alignEnd");
 	const inlineItemHeader = useTemplateFeature("inlineItemHeader");
+	const metrics = getTemplateMetrics(data.metadata.page);
+	const roleGap = metrics.itemGapY * 1.5;
 
 	if (items.length === 0) return null;
 
 	return (
 		<SectionShell sectionId={sectionId} title={experience.title}>
-			<SectionItems columns={experience.columns}>
+			<SectionItems columns={experience.columns} itemGapMultiplier={1.5}>
 				{items.map((item) => {
 					const hasPosition = Boolean(item.position.trim());
 					const hasLocation = Boolean(item.location.trim());
@@ -480,7 +485,18 @@ const ExperienceSection = ({ sectionId = "experience", sectionData }: ItemSectio
 
 							{(hasPosition || hasSplitRowText(headerPeriod)) && (
 								<View style={composeStyles(splitRowStyle)}>
-									{hasPosition && <Text>{item.position}</Text>}
+									{hasPosition && (
+										<Text
+											style={{
+												fontWeight:
+													data.metadata.typography.body.fontWeights.at(-2) ??
+													data.metadata.typography.body.fontWeights.at(-1) ??
+													"500",
+											}}
+										>
+											{item.position}
+										</Text>
+									)}
 									{hasSplitRowText(headerPeriod) && <Text style={composeStyles(alignEndStyle)}>{headerPeriod}</Text>}
 								</View>
 							)}
@@ -491,10 +507,19 @@ const ExperienceSection = ({ sectionId = "experience", sectionData }: ItemSectio
 						<SectionItem key={item.id}>
 							<SectionItemHeader>{inlineItemHeader ? renderInlineHeader() : renderSplitHeader()}</SectionItemHeader>
 
-							{item.roles.map((role) => (
-								<View key={role.id}>
+							{item.roles.map((role, index) => (
+								<View key={role.id} style={index > 0 ? { marginTop: roleGap } : {}}>
 									<View style={composeStyles(splitRowStyle)}>
-										<Text style={{ fontWeight: "500" }}>{role.position}</Text>
+										<Text
+											style={{
+												fontWeight:
+													data.metadata.typography.body.fontWeights.at(-2) ??
+													data.metadata.typography.body.fontWeights.at(-1) ??
+													"500",
+											}}
+										>
+											{role.position}
+										</Text>
 										<Text style={composeStyles(alignEndStyle)}>{role.period}</Text>
 									</View>
 									<RichText>{role.description}</RichText>
