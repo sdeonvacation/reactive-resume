@@ -47,7 +47,7 @@ export default defineConfig({
 	server: {
 		host: true,
 		strictPort: true,
-		port: Number.parseInt(process.env.PORT ?? "3000", 10),
+		port: Number.parseInt(process.env.PORT ?? "4000", 10),
 		proxy: serverProxy,
 		watch: {
 			ignored: ["**/node_modules/**", "**/dist/**", "**/.git/**"],

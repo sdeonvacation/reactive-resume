@@ -4,7 +4,7 @@
 
 ### Overview
 
-Reactive Resume is a pnpm monorepo (Turborepo) with two deployable apps: `apps/web` (TanStack Start / React 19 / Vite) and `apps/server` (Hono / Node.js). The production Docker image runs a single Node.js process on port 3000, with `apps/server` mounting the API/auth/MCP/static routes and serving the built web app.
+Reactive Resume is a pnpm monorepo (Turborepo) with two deployable apps: `apps/web` (TanStack Start / React 19 / Vite) and `apps/server` (Hono / Node.js). The production Docker image runs a single Node.js process on port 4000, with `apps/server` mounting the API/auth/MCP/static routes and serving the built web app.
 
 Internal packages are source-consumed through `package.json` export maps that point at `src` files. Do not assume package-local `dist` output exists unless a package explicitly adds it.
 
@@ -109,7 +109,7 @@ The production server runs migrations during startup before serving traffic. Man
 
 Copy `.env.example` to `.env`. The three required variables are:
 
-- `APP_URL` (default `http://localhost:3000`)
+- `APP_URL` (default `http://localhost:4000`)
 - `DATABASE_URL` (default `postgresql://postgres:postgres@localhost:5432/postgres`)
 - `AUTH_SECRET` (any non-empty string)
 
@@ -126,7 +126,7 @@ When running dev servers or migration commands, prefix the command with `dotenvx
 | Start Postgres + SeaweedFS | `sudo docker compose -f compose.dev.yml up -d postgres seaweedfs seaweedfs_create_bucket` |
 | Generate migrations | `dotenvx run -f .env.local -- pnpm db:generate` |
 | Run migrations | `dotenvx run -f .env.local -- pnpm db:migrate` |
-| Dev server | `dotenvx run -f .env.local -- pnpm dev` (starts on port 3000) |
+| Dev server | `dotenvx run -f .env.local -- pnpm dev` (starts on port 4000) |
 | Web dev server only | `dotenvx run -f .env.local -- pnpm dev:web` |
 | Lint/format | `pnpm check` (Biome) |
 | Boundary check | `pnpm exec turbo boundaries` |

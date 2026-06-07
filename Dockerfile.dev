@@ -41,6 +41,6 @@ RUN --mount=type=cache,id=reactive-resume-dev-pnpm-store,target=/pnpm/store,shar
 
 COPY . .
 
-EXPOSE 3000/tcp 3001/tcp
+EXPOSE 4000/tcp 3001/tcp
 
 CMD ["pnpm", "run", "dev"]

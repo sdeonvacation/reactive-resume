@@ -86,7 +86,7 @@ services:
       - data_network
       - storage_network
     ports:
-      - "3000:3000"
+      - "4000:4000"
     env_file:
       - path: .env.example
         required: false
@@ -102,7 +102,7 @@ services:
       seaweedfs_create_bucket:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/health').then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
       start_period: 10s
       interval: 30s
       timeout: 10s

@@ -50,7 +50,7 @@ LABEL org.opencontainers.image.documentation="https://docs.rxresu.me"
 LABEL org.opencontainers.image.source="https://github.com/amruthpillai/reactive-resume"
 
 ENV NODE_ENV="production" \
-    PORT=3000 \
+    PORT=4000 \
     LOCAL_STORAGE_PATH=/app/data
 
 WORKDIR /app
@@ -69,8 +69,8 @@ WORKDIR /app
 
 USER node
 
-EXPOSE 3000/tcp
+EXPOSE 4000/tcp
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD ["node", "-e", "fetch(`http://127.0.0.1:${process.env.PORT ?? 3000}/api/health`).then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
+    CMD ["node", "-e", "fetch(`http://127.0.0.1:${process.env.PORT ?? 4000}/api/health`).then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
 
 CMD ["node", "apps/server/dist/index.mjs"]

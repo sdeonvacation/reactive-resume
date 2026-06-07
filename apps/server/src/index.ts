@@ -10,7 +10,7 @@ async function main() {
 	await runStartupChecks();
 
 	const port =
-		process.env.NODE_ENV === "production" ? Number.parseInt(process.env.PORT ?? "3000", 10) : env.SERVER_PORT;
+		process.env.NODE_ENV === "production" ? Number.parseInt(process.env.PORT ?? "4000", 10) : env.SERVER_PORT;
 
 	const app = createApp();
 
