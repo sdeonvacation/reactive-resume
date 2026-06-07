@@ -17,7 +17,6 @@ import { DirectionProvider } from "@reactive-resume/ui/components/direction";
 import { Toaster } from "@reactive-resume/ui/components/sonner";
 import { TooltipProvider } from "@reactive-resume/ui/components/tooltip";
 import { BreakpointIndicator } from "@/components/layout/breakpoint-indicator";
-import { DonationToast } from "@/components/ui/donation-toast";
 import { DialogManager } from "@/dialogs/manager";
 import { CommandPalette } from "@/features/command-palette";
 import { ThemeProvider } from "@/features/theme/provider";
@@ -126,7 +125,6 @@ function RootComponent() {
 													<PromptDialogProvider>
 														<Outlet />
 
-														<DonationToast />
 														<DialogManager />
 														<CommandPalette />
 														<Toaster richColors position="bottom-right" />
