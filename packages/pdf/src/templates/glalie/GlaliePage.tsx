@@ -210,7 +210,7 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				fontSize: metadata.typography.body.fontSize * 0.875,
 			},
 			bold: {
-				fontWeight: metadata.typography.body.fontWeights.at(-1) ?? "600",
+				fontWeight: metadata.typography.body.fontWeights.at(-2) ?? metadata.typography.body.fontWeights.at(-1) ?? "600",
 			},
 			richParagraph: {
 				margin: 0,
@@ -339,12 +339,22 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				sidebarForeground: colors.sidebarForeground,
 			});
 
+		const mainFontScale = 1.15;
+
 		return {
 			colors,
 			styles: {
 				...baseStyles,
-				text: (context) => ({ ...bodyText, color: foregroundFor(context) }),
-				heading: (context) => ({ ...baseStyles.heading, color: foregroundFor(context) }),
+				text: (context) => ({
+					...bodyText,
+					color: foregroundFor(context),
+					...(context.placement === "main" && { fontSize: metadata.typography.body.fontSize * mainFontScale }),
+				}),
+				heading: (context) => ({
+					...baseStyles.heading,
+					color: foregroundFor(context),
+					...(context.placement === "main" && { fontSize: metadata.typography.heading.fontSize * mainFontScale }),
+				}),
 				link: (context) => ({ ...baseStyles.link, color: foregroundFor(context) }),
 				sectionHeading: (context) => ({ ...baseStyles.sectionHeading, color: foregroundFor(context) }),
 				levelItem: (context) => ({ borderColor: accentFor(context) }),

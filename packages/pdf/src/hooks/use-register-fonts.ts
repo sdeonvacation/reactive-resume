@@ -191,10 +191,12 @@ export const registerFonts = (typography: Typography, locale: Locale, hasCjkCont
 	};
 
 	for (const italic of [false, true]) {
-		registerFont(bodyFontFamily, bodyRange.lowest, italic);
-		registerFont(bodyFontFamily, bodyRange.highest, italic);
-		registerFont(headingFontFamily, headingRange.lowest, italic);
-		registerFont(headingFontFamily, headingRange.highest, italic);
+		for (const weight of pdfTypography.body.fontWeights) {
+			registerFont(bodyFontFamily, Number(weight), italic);
+		}
+		for (const weight of pdfTypography.heading.fontWeights) {
+			registerFont(headingFontFamily, Number(weight), italic);
+		}
 	}
 
 	// Register a CJK fallback so textkit can substitute per-codepoint for
