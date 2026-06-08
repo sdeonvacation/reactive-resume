@@ -31,6 +31,7 @@ type GlalieStyles = Omit<TemplateStyleSlots, "page"> & {
 	headerName: Style;
 	contactList: Style;
 	contactItem: Style;
+	contactText: Style;
 };
 
 type GlalieTemplate = {
@@ -114,24 +115,29 @@ const Header = ({ styles }: GlalieHeaderProps) => {
 				{basics.email && (
 					<Link src={`mailto:${basics.email}`} style={styles.contactItem}>
 						<Icon name="envelope" />
-						<Text>{basics.email}</Text>
+						<Text style={styles.contactText}>{basics.email}</Text>
 					</Link>
 				)}
 				{basics.phone && (
 					<Link src={`tel:${basics.phone}`} style={styles.contactItem}>
 						<Icon name="phone" />
-						<Text>{basics.phone}</Text>
+						<Text style={styles.contactText}>{basics.phone}</Text>
 					</Link>
 				)}
 				{basics.location && (
 					<View style={styles.contactItem}>
 						<Icon name="map-pin" />
-						<Text>{basics.location}</Text>
+						<Text style={styles.contactText}>{basics.location}</Text>
 					</View>
 				)}
-				<WebsiteContactItem website={basics.website} style={styles.contactItem} />
+				<WebsiteContactItem website={basics.website} style={styles.contactItem} textStyle={styles.contactText} />
 				{basics.customFields.map((field) => (
-					<CustomFieldContactItem key={field.id} field={field} style={styles.contactItem} />
+					<CustomFieldContactItem
+						key={field.id}
+						field={field}
+						style={styles.contactItem}
+						textStyle={styles.contactText}
+					/>
 				))}
 			</View>
 		</View>
@@ -328,6 +334,9 @@ const useGlalieTemplate = (): GlalieTemplate => {
 				flexDirection: r.row,
 				alignItems: "center",
 				columnGap: metrics.gapX(1 / 6),
+			},
+			contactText: {
+				fontSize: metadata.typography.body.fontSize * 0.85,
 			},
 		});
 
