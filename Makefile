@@ -3,8 +3,8 @@
 
 SHELL := /bin/bash
 
-COLIMA_PROFILE := reactive-resume
-DOCKER_CTX := colima-$(COLIMA_PROFILE)
+COLIMA_PROFILE := default
+DOCKER_CTX := colima
 COMPOSE := docker --context $(DOCKER_CTX) compose -f compose.dev.yml
 DOTENVX := pnpm dlx @dotenvx/dotenvx
 ENV_FILE := .env.local
