@@ -254,7 +254,7 @@ const useScizorTemplate = (): ScizorTemplate => {
 				flexDirection: r.row,
 				flexWrap: "wrap",
 				rowGap: metrics.gapY(0.125),
-				columnGap: metrics.gapX(0.55),
+				columnGap: metrics.gapX(1),
 			},
 			headerContactItem: {
 				flexDirection: r.row,
@@ -295,6 +295,7 @@ const useScizorTemplate = (): ScizorTemplate => {
 					display: metadata.page.hideIcons ? "none" : "flex",
 					size: metadata.typography.body.fontSize,
 					color: accentFor(context),
+					style: { marginBottom: 1 },
 				}),
 			} satisfies ScizorStyles,
 		};
