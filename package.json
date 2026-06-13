@@ -50,7 +50,6 @@
 		"@vitest/coverage-v8": "^4.1.8",
 		"happy-dom": "^20.9.0",
 		"knip": "^6.15.0",
-		"lefthook": "^2.1.9",
 		"npm-check-updates": "^22.2.1",
 		"turbo": "^2.9.16",
 		"typescript": "^6.0.3",
