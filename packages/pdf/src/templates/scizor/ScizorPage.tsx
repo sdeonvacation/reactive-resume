@@ -168,6 +168,7 @@ const useScizorTemplate = (): ScizorTemplate => {
 			},
 			bold: {
 				fontWeight: metadata.typography.body.fontWeights.at(-1) ?? "700",
+				fontSize: metadata.typography.body.fontSize + 1,
 				color: foreground,
 			},
 			richParagraph: {
@@ -254,7 +255,7 @@ const useScizorTemplate = (): ScizorTemplate => {
 				flexDirection: r.row,
 				flexWrap: "wrap",
 				rowGap: metrics.gapY(0.125),
-				columnGap: metrics.gapX(1),
+				columnGap: metrics.gapX(1.5),
 			},
 			headerContactItem: {
 				flexDirection: r.row,
