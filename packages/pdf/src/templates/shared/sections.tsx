@@ -356,8 +356,9 @@ const SectionItemHeader = ({ children }: SectionItemHeaderProps) => {
 const ItemTitle = ({ children, website }: ItemTitleProps) => {
 	const data = useRender();
 	const highestWeight = data.metadata.typography.body.fontWeights.at(-1) ?? "600";
+	const itemTitleStyle = useTemplateStyle("itemTitle");
 	const inlineWebsiteUrl = getInlineItemWebsiteUrl(website);
-	const title = <Bold style={{ fontWeight: highestWeight }}>{children}</Bold>;
+	const title = <Bold style={composeStyles({ fontWeight: highestWeight }, itemTitleStyle)}>{children}</Bold>;
 
 	if (!inlineWebsiteUrl) return title;
 

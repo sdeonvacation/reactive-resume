@@ -168,8 +168,10 @@ const useScizorTemplate = (): ScizorTemplate => {
 			},
 			bold: {
 				fontWeight: metadata.typography.body.fontWeights.at(-1) ?? "700",
-				fontSize: metadata.typography.body.fontSize + 1,
 				color: foreground,
+			},
+			itemTitle: {
+				fontSize: metadata.typography.body.fontSize + 1,
 			},
 			richParagraph: {
 				margin: 0,
