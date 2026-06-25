@@ -107,7 +107,7 @@ const Header = ({ styles }: GlalieHeaderProps) => {
 			<View style={styles.headerTitle}>
 				<View style={styles.headerIdentity}>
 					<Heading style={styles.headerName}>{basics.name}</Heading>
-					<Text style={{ fontSize: metadata.typography.body.fontSize * 1.6 }}>{basics.headline}</Text>
+					<Text style={{ fontSize: metadata.typography.body.fontSize * 1.1 }}>{basics.headline}</Text>
 				</View>
 			</View>
 
@@ -318,7 +318,7 @@ const useGlalieTemplate = (): GlalieTemplate => {
 			},
 			headerIdentity: {
 				alignItems: "flex-start",
-				textAlign: "center",
+				textAlign: "left",
 				rowGap: metrics.gapY(0.35),
 			},
 			headerName: {
