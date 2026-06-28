@@ -107,7 +107,7 @@ const Header = ({ styles }: GlalieHeaderProps) => {
 			<View style={styles.headerTitle}>
 				<View style={styles.headerIdentity}>
 					<Heading style={styles.headerName}>{basics.name}</Heading>
-					<Text style={{ fontSize: metadata.typography.body.fontSize * 1.1 }}>{basics.headline}</Text>
+					<Text style={{ fontSize: metadata.typography.body.fontSize * 1.4, fontWeight: "bold" }}>{basics.headline}</Text>
 				</View>
 			</View>
 
